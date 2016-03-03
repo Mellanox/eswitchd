@@ -2,8 +2,9 @@
 description "Mellanox Eswitchd"
 author "Mellanox Openstack <openstack@mellanox.com>"
 
-start on (started openibd and started libvirt-bin)
-stop on runlevel [016]
+start on runlevel [2345]
+stop on runlevel [!2345]
+respawn
 
 chdir /var/run
 
