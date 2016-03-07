@@ -5,6 +5,7 @@ author "Mellanox Openstack <openstack@mellanox.com>"
 start on runlevel [2345]
 stop on runlevel [!2345]
 respawn
+post-stop exec sleep 5
 
 chdir /var/run
 
@@ -16,13 +17,4 @@ script
         ESWITCHD_CONF=/etc/eswitchd/eswitchd.conf
 
         exec start-stop-daemon --start --chuid eswitch --exec /usr/bin/eswitchd -- --config-file $ESWITCHD_CONF
-end script
-
-post-start script
-       if [ -x /etc/init.d/neutron-plugin-mlnx-agent ] ; then
-        exec /etc/init.d/neutron-plugin-mlnx-agent restart
-       fi
-       if [ -x /etc/init.d/nova-compute ] ;then
-        exec /etc/init.d/nova-compute restart
-       fi
 end script

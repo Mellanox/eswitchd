@@ -86,9 +86,9 @@ class MlxEswitchDaemon(object):
         if data:
             try:
                 result = self.dispatcher.handle_msg(data)
-                msg = jsonutils.dumps(result)
+                msg = json.dumps(result)
             except Exception as e:
-                LOG.exception(_LE("exception during message handling - %s"), e)
+                LOG.exception("exception during message handling - %s", e)
                 msg = str(e)
             sender.send(msg)
 
